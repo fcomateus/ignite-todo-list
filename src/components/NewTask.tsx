@@ -1,9 +1,10 @@
 import styles from './NewTask.module.css'
+import { TaskType } from '../App'
 import { PlusCircle } from 'phosphor-react'
 import { FormEvent, ChangeEvent, useState } from 'react'
 
 interface NewTaskProps {
-    createTask: (taskContent: string) => void
+    createTask: (newTask: TaskType) => void
 }
 
 export function NewTask({ createTask }: NewTaskProps) {
@@ -16,8 +17,11 @@ export function NewTask({ createTask }: NewTaskProps) {
             return alert('Digite o conteúdo da tarefa')
         }
 
-        createTask(content)
-        
+        createTask({
+            content,
+            finished: false
+        })
+        setContent('')
     }
 
     function handleChangeTaskContent(event: ChangeEvent<HTMLInputElement>) {

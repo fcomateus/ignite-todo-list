@@ -4,7 +4,7 @@
 }
 
 .header {
-    margin-top: 6.4rem;
+    margin: 6.4rem 0 2.4rem;
     display: flex;
     justify-content: space-between;
     font-weight: bold;
@@ -43,4 +43,10 @@
 .p-title {
     margin-top: 1.6rem;
     font-weight: bold;
+}
+
+.taskList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
 }

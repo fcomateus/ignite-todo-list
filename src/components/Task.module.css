@@ -1,0 +1,64 @@
+.unfinishedTask, .finishedTask {
+  height: 7.2rem;
+  padding: 1.6rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.unfinishedTask {
+  outline: 1px solid var(--gray-400);
+  background: var(--gray-500);
+}
+
+.finishedTask {
+  background: var(--gray-500)
+}
+
+.finishedTask p {
+  text-decoration: line-through;
+}
+
+input[type="checkbox"] {
+  visibility: hidden;
+  max-height: 0;
+}
+
+.contentAndInputWrapper {
+  display: flex;
+}
+
+.uncheckedLabel, .checkedLabel {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+.uncheckedLabel {
+  outline: 2px solid var(--blue);
+}
+
+.checkedLabel {
+  background: var(--purple-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteButton {
+  background: none;
+  border: none;
+  height: fit-content;
+  font-size: 0;
+  border-radius: 4px;
+}
+
+.deleteButton svg {
+  transition: all 0.2s;
+  color: var(--gray-300);
+}
+
+.deleteButton:hover svg, .deleteButton:focus svg{
+  color: var(--danger);
+}

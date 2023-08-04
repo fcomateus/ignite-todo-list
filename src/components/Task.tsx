@@ -1,12 +1,45 @@
-import { Trash } from "phosphor-react";
+import styles from './Task.module.css'
+import { TaskType } from '../App';
+import { Trash, Check } from "phosphor-react";
+import { useState, ChangeEvent } from 'react';
 
-export function Task() {
+interface TaskProps {
+    task: TaskType,
+    deleteTask: (content:string) => void
+}
+
+export function Task({ task, deleteTask }:TaskProps) {
+    const [checked, setChecked] = useState(false)
+
+    const randomId = 'task_' + Math.random() * 16
+
+    function handleClickCheckbox(event: ChangeEvent<HTMLInputElement>) {
+        const value = event.target.checked
+        setChecked(value)
+    }
+
+    function handleDeleteTask() {
+        deleteTask(task.content)
+    }
+
     return (
-        <li>
-            <label htmlFor="taskFinished">AA</label>
-            <input type="checkbox" id="taskFinished"/>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis molestias ratione modi? Dolorem</p>
-            <Trash size={18}/>
+        <li className={checked ? styles.finishedTask : styles.unfinishedTask}>
+            
+            <div className={styles.contentAndInputWrapper}>
+                <label className={checked ? styles.checkedLabel : styles.uncheckedLabel} htmlFor={randomId}>
+                    {
+                        checked ? <Check weight={"bold"}/> : ''
+                    }
+                </label>
+
+                <input onChange={handleClickCheckbox} type="checkbox" id={randomId}/>
+                <p>{task.content}</p>
+            </div>
+
+            <button onClick={handleDeleteTask} className={styles.deleteButton}>
+                <Trash size={18}/>
+            </button>
+
         </li>
     )
 }
