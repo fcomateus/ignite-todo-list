@@ -4,11 +4,12 @@ import { Trash, Check } from "phosphor-react";
 import { useState, ChangeEvent } from 'react';
 
 interface TaskProps {
-    task: TaskType,
-    deleteTask: (content:string) => void
+    task: TaskType;
+    deleteTask: (content:string) => void;
+    updateTask: (content:string) => void;
 }
 
-export function Task({ task, deleteTask }:TaskProps) {
+export function Task({ task, deleteTask, updateTask }:TaskProps) {
     const [checked, setChecked] = useState(false)
 
     const randomId = 'task_' + Math.random() * 16
@@ -16,10 +17,15 @@ export function Task({ task, deleteTask }:TaskProps) {
     function handleClickCheckbox(event: ChangeEvent<HTMLInputElement>) {
         const value = event.target.checked
         setChecked(value)
+        handleUpdateStatus()
     }
 
     function handleDeleteTask() {
         deleteTask(task.content)
+    }
+
+    function handleUpdateStatus() {
+        updateTask(task.content)
     }
 
     return (

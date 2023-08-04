@@ -1,7 +1,7 @@
 import { Header } from "./components/Header"
 import { NewTask } from "./components/NewTask"
 import { Task } from "./components/Task"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './App.module.css'
 import clipboard from './assets/clipboard.svg'
 
@@ -12,9 +12,9 @@ export interface TaskType {
 
 export function App() {
   const [tasks, setTasks] = useState<TaskType[]>([])
+  const [concludedTasksText, setConcludedTasksText] = useState('0')
 
   function createTask(newTask: TaskType) {
-    console.log('newTask',newTask);
     
     setTasks( state => {
       return [...state, newTask]
@@ -26,6 +26,34 @@ export function App() {
     setTasks(filteredTasks)
   }
 
+  function updateTask(taskToUpdate: string) {
+    const newTaskList = tasks.map(task => {
+      if(task.content === taskToUpdate) {
+        task.finished = !task.finished
+      }
+
+      return task
+    })
+
+    setTasks(newTaskList)
+  }
+
+
+  useEffect(() => {
+    let counter = 0
+
+    tasks.map(task => {
+      if(task.finished){
+        counter++
+      }
+    })
+
+    const text = counter === 0 ? '0' : `${counter} de ${tasks.length}`
+    setConcludedTasksText(text)
+
+  }, [tasks])
+
+
   return (
     <div>
       <Header/>
@@ -35,7 +63,7 @@ export function App() {
 
         <header className={styles.header}>
           <section>Tarefas criadas <span className={styles.counters}>{tasks.length}</span></section>
-          <section>Concluídas <span className={styles.counters}>0</span></section>
+          <section>Concluídas <span className={styles.counters}>{concludedTasksText}</span></section>
         </header>
 
 
@@ -52,7 +80,7 @@ export function App() {
           <ul className={styles.taskList}>
             {
               tasks.map(task => {
-                return <Task key={task.content} task={task} deleteTask={deleteTask}/>
+                return <Task key={task.content} task={task} updateTask={updateTask} deleteTask={deleteTask}/>
               })
             }
           </ul>
