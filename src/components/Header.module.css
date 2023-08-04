@@ -1,0 +1,21 @@
+.header {
+    height: 20rem;
+    background: var(--gray-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+.to {
+    color: var(--blue);
+}
+
+.do {
+    color: var(--purple-dark);
+}
+
+.to, .do {
+    font-size: 4rem;
+    line-height: 140%;
+}
